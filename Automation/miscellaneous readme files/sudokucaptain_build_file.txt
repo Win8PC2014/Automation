@@ -1,0 +1,19 @@
+
+Steps to create the Engine Class:
+
+1) Run the Ant Target called 'GenerateJavaClass' on the selected package.
+2) Classes identified with @automatable_class Javadoc tag
+for each, produce package com.sudokucaptain.engine_CLASSNAME where CLASSNAME is replaced 
+with the name of the class with the automatable_class Javadoc tag
+3) create class Engine_CLASSNAME in the package above using template in GenerateJavaClass.vsl
+
+Ant build file "sudokucaptain.xml" has targets "GenerateSchema" and "GenerateEngine"
+
+A class is annotated with "@automatable_class" and then the "GenerateEngine" target is executed. 
+This will produce the class which extends the annotated automatable_class.
+
+Then the target "GenerateSchema" is executed. This will produce the XML Schema describing the engine class and the automated methods it contains.
+
+GenerateJavaClass looks for tag @automatable_class produces an Engine derived from that class and annotates it with tag @automatable_engine
+
+GenerateSchema looks for tag @automatable_engine and produces an XML schema that gets compile by JAXB into a Java Package

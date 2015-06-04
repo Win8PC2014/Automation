@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:sc="http://www.sudokucaptain.com" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.sudokucaptain.com" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:import schemaLocation="CommandString.xsd"/>
+	<xs:annotation>
+		<xs:documentation> </xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="TestMethod1Type">
+		<xs:complexContent>
+			<xs:extension base="MethodCallType"/>
+		</xs:complexContent>
+	</xs:complexType>
+	<xs:complexType name="TestMethod2Type"/>
+	<xs:annotation>
+		<xs:documentation> </xs:documentation>
+	</xs:annotation>
+	<xs:element name="TestMethod1" type="sc:TestMethod1Type"/>
+	<xs:element name="TestMethod2" type="sc:TestMethod2Type"/>
+</xs:schema>

@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<xs:annotation>
+		<xs:documentation> Complex types</xs:documentation>
+	</xs:annotation>
+	<xs:complexType name="CommandStringType">
+		<xs:sequence>
+			<xs:element name="Class"/>
+			<xs:element name="QualifiedClassName"/>
+			<xs:element name="MethodCalls">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="MethodCall" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="MethodCallType" abstract="true">
+		<xs:sequence>
+			<xs:element name="Name"/>
+			<xs:element name="ReturnType" type="JavaPrimitive"/>
+			<xs:element name="Parameters">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element ref="Parameter" minOccurs="0" maxOccurs="unbounded"/>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ParameterType">
+		<xs:sequence>
+			<xs:element name="Name" type="xs:string"/>
+			<xs:element name="Type" type="JavaPrimitive"/>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:annotation>
+		<xs:documentation> Elements</xs:documentation>
+	</xs:annotation>
+	<xs:element name="MethodCall" type="MethodCallType" abstract="true"/>
+	<xs:element name="Parameter" type="ParameterType"/>
+	<xs:annotation>
+		<xs:documentation> Simple types</xs:documentation>
+	</xs:annotation>
+	<xs:simpleType name="JavaPrimitive">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="byte"/>
+			<xs:enumeration value="short"/>
+			<xs:enumeration value="int"/>
+			<xs:enumeration value="long"/>
+			<xs:enumeration value="float"/>
+			<xs:enumeration value="double"/>
+			<xs:enumeration value="boolean"/>
+			<xs:enumeration value="char"/>
+			<xs:enumeration value="void"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="sudokucaptain" default="03_compile" basedir=".">
+	
+   <!--
+PROPERTY DEFS
+-->
+   <property file="sudokucaptain.properties" />
+   <property environment="env" />
+   <property name="src.dir" value="${basedir}/src" />
+   <property name="build.dir" value="${basedir}/classes" />
+   <property name="dist.dir" value="${basedir}/dist" />
+   <property name="engine.dir" value="${src.dir}/${Package_Name_of_Generated_Class}" />
+   <property name="tools.jar" value="${env.JAVA_HOME}/lib/tools.jar" />
+   <property name="velocity_dep.jar" value="${env.VELOCITY_HOME}/velocity-1.7-dep.jar" />
+	
+   <path id="build.classpath">
+      <pathelement location="${tools.jar}" />
+      <pathelement location="${velocity_dep.jar}" />
+   </path>
+	
+<!--
+	01_clean - DELETE FOLDERS HOLDING OUTPUT FILES
+-->
+   <target name="01_clean">
+      <delete dir="${build.dir}" />
+      <delete dir="${dist.dir}" />
+      <delete dir="${engine.dir}" />
+   </target>
+	
+<!--
+	02_init - CREATE FOLDERS TO HOLD OUTPUT FILES. ALSO, COPY VELOCITY CLASSES TO OUR CLASSES DIR
+-->
+   <target name="02_init">
+      <mkdir dir="${build.dir}" />
+      <mkdir dir="${dist.dir}" />
+      <mkdir dir="${engine.dir}" />
+   	
+      <copy todir="${build.dir}">
+         <fileset dir="${orgApacheVelocityDir}" />
+      </copy>
+   	
+   </target>
+	
+<!--
+	03_compile - 
+-->	
+   <target name="03_compile" depends="02_init">
+      <javac destdir="${build.dir}" includeantruntime="false">
+         <src path="${src.dir}" />
+         <classpath refid="build.classpath" />
+      </javac>
+   </target>
+	
+<!--
+	04_GenerateEngineClassDoclet - USE JAVADOC with GenerateEngineClass DOCLET TO GENERATE .JAVA file for THE AUTOMATOR
+-->
+   <target name="04_GenerateEngineClassDoclet" description="Run GenerateJavaClass on given package">
+      <echo message=" " />
+      <echo message="Running Javadoc with GenerateJavaClass..." />
+      <echo message=" " />
+      <javadoc packagenames="com.BrandX.*" sourcepath="${src.dir}">
+         <doclet name="com.sudokucaptain.automation.GenerateEngineClass" path="${build.dir}" />
+      </javadoc>
+   </target>
+	
+<!--
+	05_GenerateSchemaDoclet - USE JAVADOC with GenerateSchema TO GENERATE .XSD file for THE GIVEN AUTOMATOR
+-->
+   <target name="05_GenerateSchemaDoclet" description="Run 04_GenerateSchema on given package">
+      <echo message=" " />
+      <echo message="Running Javadoc with 04_GenerateSchema..." />
+      <echo message=" " />
+      <javadoc packagenames="automator.engine_Class2.*" sourcepath="${src.dir}">
+         <doclet name="com.sudokucaptain.automation.GenerateSchema" path="${build.dir}" />
+      </javadoc>
+   </target>
+	
+</project>

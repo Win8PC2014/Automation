@@ -1,0 +1,3 @@
+1. Create Class with methods than can be automated.
+2. Annotate the class and methods with @automatable.
+3. Run 

@@ -1,0 +1,5 @@
+Folder nbproject is an artifact from the NetBeans installation using this project and is unnecessary for eclipse users. The project needs 2 folders not present in the repo. A folder 'lib' where 2 jars need to be placed, manually, for the project to work. These are tools.jar and velocity-1.7-dep.jar. The build file currently assumes velocity-1.7-dep.jar and needs to be edited it a different version of Velocity is used. 
+
+A second folder 'Extract_Velocity_1_7_dep_jar_HERE' needs to be created manually. The jar velocity-1.7-dep.jar should be opened with a utility such as 7Zip and the folder named 'org' inside of it copied to the aforementioned 'Extract_Velocity_1_7_dep_jar_HERE' folder.
+
+The lib folder and it's contents are used by the Ant build file to compile the project and 'Extract_Velocity_1_7_dep_jar_HERE' is used during the execution of the Javadoc class by making the Velocity classes available.
